@@ -7,8 +7,5 @@ Xpiry is a webapp written in AngularJS, with a backend using Firebase to monitor
 3. Food about to expire soon will have a yellow progress bar, and food about to be rotten will have a dark red bar. 
 
 ## How I Build It 
-1. The app itself is built using AngularJS ( a JavaScript MVC framework ) with a backend in Firebase. 
-2. The data for expiration date is scraped using BeautifulSoup, a Python web scraper library 
-3. The recipe auto-generation is done through Angular HTTP, using Mashape API 
-4. The Google Assitant SDK is implemented through Dialogflow and deployed on Cloud Functions to integrate with the Firebase
+The app itself is built using AngularJS ( a JavaScript MVC framework ) with a backend in Firebase. The data for expiration date is scraped using BeautifulSoup, a Python web scraper library. The recipe auto-generation is done through Angular HTTP, using Mashape API. The Google Assitant SDK is implemented through Dialogflow and deployed on Cloud Functions to integrate with the Firebase
 
