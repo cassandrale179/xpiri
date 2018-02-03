@@ -54,8 +54,6 @@ exports.assistantcodelab = functions.https.onRequest((request, response) => {
            assistant.ask(speech);
        })
 
-
-       // const speech = `Okay, you have chicken, brocolli, and apple that has already expired. You have chocolate cake about to expire soon, and your donuts are still in good condition. Would you like to get a recipe ?`;
        assistant.ask(speech);
    }
 
