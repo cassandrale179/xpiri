@@ -127,14 +127,15 @@ app.directive('customOnChange', function() {
 
     //------- TAKE INFO OF STORAGE STRING ON THE DATABASE ------
     var statusRef = firebase.database().ref("status");
+    var countRef = firebase.database().ref("count");
+
+    //------ VARIABLES TO BE USED -----
     $scope.expiredStr = "";
     $scope.staleStr = "";
     $scope.goodStr = "";
-    // var promiseRef = statusRef.on('value', function(snapshot){
-    //     $scope.expiredStr = snapshot.val().expired;
-    //     $scope.staleStr = snapshot.val().stale;
-    //     $scope.goodStr = snapshot.val().good;
-    // });
+    $scope.e = 0;
+    $scope.s = 0;
+    $scope.g = 0;
 
 
 
@@ -157,42 +158,38 @@ app.directive('customOnChange', function() {
       var foodRef = firebase.database().ref("storage").child(foodName);
       foodRef.update(foodObj);
 
-      //------- HANDLE UNDEFINED -----
-      // if ($scope.goodStr == undefined){
-      //    $scope.goodStr = "";
-      // }
-      // if ($scope.expiredStr == undefined){
-      //    $scope.expiredStr = "";
-      // }
-      // if ($scope.staleStr == undefined){
-      //    $scope.staleStr = "";
-      // }
-
-
 
       //--------------- UPDATE STATUS DATABASE -----------
       if (foodObj.percent > 70){
           $scope.goodStr = $scope.goodStr + foodName + ",";
+          $scope.g += 1;
       }
       else if (foodObj.pecent > 30 ){
           $scope.staleStr = $scope.staleStr + foodName + ",";
+          $scope.s += 1;
       }
       else{
           $scope.expiredStr = $scope.expiredStr + foodname;
+          $scope.e += 1;
       }
       foodName = "";
 
     }
 
-    //----------- UPDATE THE STORAGE DATABASE -------
-    // console.log("Food status");
-    // console.log($scope.goodStr);
-    // console.log($scope.staleStr);
-    // console.log($scope.expiredStr);
-    //
+    //----------- JUST SOME GRAMMAR STUFF -----------
+    if ($scope.expiredStr == "") {$scope.expiredStr = "none";}
+    if ($scope.goodStr == "") {$scope.goodStr = "none";}
+    if ($scope.staleStr == "") {$scope.staleStr = "none";}
+
+    //----------- UPDATE THE STORAGE DATABASE ----------
     statusRef.update({"good": $scope.goodStr});
     statusRef.update({"stale": $scope.staleStr});
     statusRef.update({"expired": $scope.expiredStr});
+    countRef.update({
+        "e": $scope.e,
+        "g": $scope.g,
+        "s": $scope.s
+    });
 
 
   //----------- FILLING PROGRESS BAR -----------
