@@ -21,7 +21,7 @@ cd functions
 npm install --save actions-on-google  
 firebase login
 firebase init
-firebase deplou
+firebase deploy
 ``` 
 
 
