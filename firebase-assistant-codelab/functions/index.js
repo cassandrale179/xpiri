@@ -5,7 +5,7 @@ process.env.DEBUG = 'actions-on-google:*';
 const Assistant = require('actions-on-google').ApiAiAssistant;
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-// const twilio = require('twilio');
+const twilio = require('twilio');
 admin.initializeApp(functions.config().firebase);
 
 //----------- FIREBASE REF ---------------
@@ -28,10 +28,6 @@ const BRANCH_PARAM = 'branch';
 const ANSWER_PARAM = 'answer';
 const QUESTION_PARAM = 'question';
 
-//-------- TWILIO API STUFF ----------
-// const accountSid = 'ACa25b9e68025c8db22bb5d85e4e930cc5';
-// const authToken = 'b3914f78318a81ab0603b02b2256ff93';
-// const client = require('twilio')(accountSid, authToken);
 
 //------------------ EXPORT THE FUNCTION -----------------------------
 exports.assistantcodelab = functions.https.onRequest((request, response) => {
@@ -60,11 +56,9 @@ exports.assistantcodelab = functions.https.onRequest((request, response) => {
    function details(assistant){
        statusRef.once('value', snap => {
            const speech = `Okay, you currently have ${snap.val().good} that are good, ${snap.val().stale} that are stale, and
-           ${snap.val().expired} that are expired`;
+           ${snap.val().expired} that are expired. What else you would like to do?`;
            assistant.ask(speech);
-       })
-
-       assistant.ask(speech);
+       });
    }
 
 
